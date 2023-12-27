@@ -17,3 +17,8 @@
 
 - Java -> mvn clean package (empaquetado spring boot)
 - Docker -> uso del Dockerfile en la raíz del proyecto
+
+
+## Test
+
+JUnit funcional con MockMvc
