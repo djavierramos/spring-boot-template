@@ -5,7 +5,7 @@ import lombok.experimental.SuperBuilder;
 
 @Data
 @SuperBuilder
-public class AccountDTO {
-    private String IBAN;
-    private AmmountDTO balance;
+public class CustomerDTO {
+    String id;
+    String fullName;
 }
