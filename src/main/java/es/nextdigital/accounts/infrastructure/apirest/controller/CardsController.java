@@ -26,4 +26,5 @@ public class CardsController {
         return card.isPresent() ? ResponseEntity.ok().body(cardDtoToDomainMapper.fromDomainToDTO(card.get()))
             : ResponseEntity.noContent().build();
     }
+    
 }
