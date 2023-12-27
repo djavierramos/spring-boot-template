@@ -6,7 +6,7 @@ import java.util.Optional;
 import es.nextdigital.accounts.domain.dto.Account;
 
 public interface AccountsRepository {
-    Optional<Account> getAccountByPAN(String IBAN);
+    Optional<Account> getAccountByIBAN(String IBAN);
     String putAccount(Account Account);
     void patchAccount(Account Account);
     void deleteAccount(Account Account);

@@ -1,32 +1,19 @@
-# Spring Boot Template
+# API de movimientos Bancarios
 
-This is a Spring Boot template that can be customized as per your requirements.
+## Controllers
 
-## Getting Started
+- Cards Controllers -> Gestiona las tarjetas
+  - Get tarjeta por PAN
+  - Patch de la tarjeta (Activación, cambio de PIN, etc)
+- Accounts Controllers -> Gestiona las cuentas
+  - Get Cuenta por IBAN
+  - Get Movimientos de la cuenta
+  - Realización de movimientos en la cuenta
+    - Los movimientos de extracción de débito se realizan sobre la cuenta asociada al pan referido en el header PAN
 
-To start using this Spring Boot template, follow these steps:
+## Repositories
 
-1. Clone or download the template repository.
-2. Open the project in your preferred Integrated Development Environment (IDE).
-3. Customize the project by modifying the source code, configurations, and dependencies as necessary.
-4. Build and run the project using the provided build tools, such as Maven or Gradle.
+## Construcción del proyecto
 
-## Documentation
-
-For detailed documentation, tutorials, and examples on how to work with Spring Boot, please refer to the official Spring Boot website: [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot)
-
-## Community and Support
-
-Join the Spring Boot community to connect with other developers and get support:
-
-- [Spring Boot Forum](https://community.spring.io/forum/spring-boot)
-- [Stack Overflow](https://stackoverflow.com/questions/tagged/spring-boot)
-- [GitHub Issues](https://github.com/spring-projects/spring-boot/issues)
-
-## License
-
-This Spring Boot template is provided under the [Apache 2.0 license](https://github.com/spring-projects/spring-boot/blob/main/LICENSE.txt).
-
----
-
-Feel free to customize and adapt this Spring Boot template to suit your needs. Happy coding!
+- Java -> mvn clean package (empaquetado spring boot)
+- Docker -> uso del Dockerfile en la raíz del proyecto
