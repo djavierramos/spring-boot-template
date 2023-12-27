@@ -29,5 +29,9 @@ public class AccountServiceImpl implements AccountsService {
     public Page<Movement> getAccountMovements(String accountId, PageRequest pageRequest) {
         return new PageImpl<Movement>(EASY_RANDOM.objects(Movement.class, 10).toList());        
     }
+    @Override
+    public void postMovement(String accountId, Movement movement, String PAN) {
+    }
+    
     
 }

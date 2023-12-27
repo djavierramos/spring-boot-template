@@ -2,6 +2,9 @@ package es.nextdigital.accounts;
 
 import java.util.List;
 
+import org.jeasy.random.EasyRandom;
+import org.jeasy.random.EasyRandomParameters;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.Assert;
 import org.springframework.web.context.WebApplicationContext;
 
+import es.nextdigital.accounts.domain.dto.Card;
+import es.nextdigital.accounts.domain.ports.CardsRepository;
 import es.nextdigital.accounts.infrastructure.apirest.dto.PageRequestDTO;
 import es.nextdigital.accounts.infrastructure.apirest.dto.PageRequestDTO.PageRequestDTOBuilder;
 import jakarta.servlet.ServletContext;
@@ -29,9 +34,18 @@ class DemoApplicationTests {
 	@Autowired
 	private WebApplicationContext webApplicationContext;
 	private MockMvc mockMvc;
+	@Autowired
+	CardsRepository cardsRepository;
+	EasyRandom easyRandom;
+	EasyRandomParameters easyRandomParameters;	
 	@BeforeEach
 	public void setup() throws Exception {
+		easyRandomParameters = new EasyRandomParameters();
+		easyRandomParameters.collectionSizeRange(2, 5);
+		easyRandomParameters.stringLengthRange(2, 10);
+		easyRandom = new EasyRandom(easyRandomParameters);
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext).build();
+		cardsRepository.putAllCards(easyRandom.objects(Card.class, 50).toList());
 	}	
 	@Test
 	void givenWhenAppStartsThenContextLoads() {
@@ -50,6 +64,20 @@ class DemoApplicationTests {
 			.param("pageSize", "10"))
 		.andDo(MockMvcResultHandlers.print())
 		.andExpect(MockMvcResultMatchers.status().isOk());
+	}
+	@Test
+	@SneakyThrows
+	public void givienUserWithCardsAndExistingCardGetCardByPanThenGetTheCard() {
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/cards").param("PAN", cardsRepository.getCards().get(0).getPAN()))
+		.andDo(MockMvcResultHandlers.print())
+		.andExpect(MockMvcResultMatchers.status().isOk());
+	}
+	@Test
+	@SneakyThrows
+	public void givienUserWithCardsAndExistingCardGetCardByNotExistingThenGetTheCard() {
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/cards").param("PAN", "NONEXISTINGPAN"))
+		.andDo(MockMvcResultHandlers.print())
+		.andExpect(MockMvcResultMatchers.status().isNoContent());
 	}
 
 }

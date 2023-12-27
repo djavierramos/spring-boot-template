@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -42,6 +44,10 @@ public class AccountsController {
     @GetMapping("/{account-id}/movements")
     public ResponseEntity<Page<MovementDTO>> getMovements(@PathParam("account-id") String accountId, @RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize) {
         return ResponseEntity.ok().body(movementDtoToDomainMapper.fromPageInDomainToPageinDTO(accountsService.getAccountMovements(accountId, new PageRequest(page,pageSize))));
+    }
+    @PostMapping("/{account-id}/movements")
+    public ResponseEntity postMovement(@PathParam("account-id") MovementDTO movementDTO,@RequestHeader("PAN") String PAN) {
+        return ResponseEntity.ok().build();
     }
 
 }

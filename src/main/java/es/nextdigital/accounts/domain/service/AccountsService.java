@@ -12,4 +12,5 @@ import es.nextdigital.accounts.domain.dto.PageRequest;
 public interface AccountsService {
     List<Account> getAccounts(String customerId);
     Page<Movement> getAccountMovements(String accountId,PageRequest pageRequest);
+    void postMovement(String accountId,Movement movement,String PAN);
 }
